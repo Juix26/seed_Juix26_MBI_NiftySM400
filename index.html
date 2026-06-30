@@ -247,14 +247,15 @@
               fill: true,
               tension: 0.3
             },
-            {
-              label: 'Above 50 DMA',
-              data: above50DMAData,
-              borderColor: '#16a34a',
-              backgroundColor: 'rgba(22, 163, 74, 0.10)',
-              fill: false,
-              tension: 0.3
-            }
+           {
+            label: 'Above 50 DMA',
+            data: above50DMAData,
+            borderColor: '#16a34a',
+            backgroundColor: 'rgba(22, 163, 74, 0.10)',
+            fill: false,
+            tension: 0.3,
+            borderDash: [6, 6]
+          }
           ]
         },
         options: {
