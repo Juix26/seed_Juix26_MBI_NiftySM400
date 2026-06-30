@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Nifty MidSmall400 Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -49,7 +50,8 @@
 <body>
   <h1 id="title">Loading...</h1>
   <p>As of: <span id="asOf">-</span></p>
-
+  <canvas id="breadthChart"></canvas>
+  
   <div class="grid">
     <div class="card">
       <div class="label">Market Regime</div>
@@ -150,6 +152,20 @@
         `;
         tbody.innerHTML += row;
       });
+
+      const ctx = document.getElementById('breadthChart');
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['2026-06-27', '2026-06-28', '2026-06-29'],
+    datasets: [{
+      label: 'Breadth Score',
+      data: [61, 64, 67]
+    }]
+  }
+});
+      
     }
 
     loadDashboard();
