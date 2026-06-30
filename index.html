@@ -96,6 +96,21 @@
   <div class="note">
     <div class="label">Status Note</div>
     <div class="value" id="statusNote" style="font-size:20px;">-</div>
+      <div class="note">
+    <div class="label">Recent Trend</div>
+    <table id="historyTable" style="width:100%; margin-top:16px; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Date</th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Breadth Score</th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Above 20 DMA</th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Above 50 DMA</th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Above 200 DMA</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
   </div>
 
   <script>
@@ -116,6 +131,25 @@
       document.getElementById('newLows').textContent = data.newLows;
       document.getElementById('dayChange').textContent = data.dayChange + '%';
       document.getElementById('statusNote').textContent = data.statusNote;
+
+        const historyResponse = await fetch('./history.json');
+      const historyData = await historyResponse.json();
+
+      const tbody = document.querySelector('#historyTable tbody');
+      tbody.innerHTML = '';
+
+      historyData.slice().reverse().forEach(item => {
+        const row = `
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid #eee;">${item.date}</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">${item.breadthScore}</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">${item.above20DMA}%</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">${item.above50DMA}%</td>
+            <td style="padding:10px; border-bottom:1px solid #eee;">${item.above200DMA}%</td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
     }
 
     loadDashboard();
