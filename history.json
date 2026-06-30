@@ -1,0 +1,37 @@
+[
+  {
+    "date": "2026-06-27",
+    "breadthScore": 61,
+    "above20DMA": 55,
+    "above50DMA": 49,
+    "above200DMA": 46
+  },
+  {
+    "date": "2026-06-28",
+    "breadthScore": 64,
+    "above20DMA": 58,
+    "above50DMA": 52,
+    "above200DMA": 47
+  },
+  {
+    "date": "2026-06-29",
+    "breadthScore": 67,
+    "above20DMA": 60,
+    "above50DMA": 55,
+    "above200DMA": 50
+  },
+  {
+    "date": "2026-06-30",
+    "breadthScore": 70,
+    "above20DMA": 64,
+    "above50DMA": 58,
+    "above200DMA": 52
+  },
+  {
+    "date": "2026-07-01",
+    "breadthScore": 72,
+    "above20DMA": 68,
+    "above50DMA": 61,
+    "above200DMA": 54
+  }
+]
