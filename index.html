@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Nifty MidSmall400 Dashboard</title>
+
+  <!-- Chart.js library from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -76,57 +79,71 @@
   </style>
 </head>
 <body>
+
+  <!-- Dashboard title and date -->
   <h1 id="title">Loading...</h1>
   <p>As of: <span id="asOf">-</span></p>
 
+  <!-- Top summary cards -->
   <div class="grid">
     <div class="card">
       <div class="label">Market Regime</div>
       <div class="value" id="regime">-</div>
     </div>
+
     <div class="card">
       <div class="label">Breadth Score</div>
       <div class="value" id="breadthScore">-</div>
     </div>
+
     <div class="card">
       <div class="label">Above 20 DMA</div>
       <div class="value" id="above20DMA">-</div>
     </div>
+
     <div class="card">
       <div class="label">Above 50 DMA</div>
       <div class="value" id="above50DMA">-</div>
     </div>
+
     <div class="card">
       <div class="label">Above 200 DMA</div>
       <div class="value" id="above200DMA">-</div>
     </div>
+
     <div class="card">
       <div class="label">Advances</div>
       <div class="value" id="advances">-</div>
     </div>
+
     <div class="card">
       <div class="label">Declines</div>
       <div class="value" id="declines">-</div>
     </div>
+
     <div class="card">
       <div class="label">New Highs</div>
       <div class="value" id="newHighs">-</div>
     </div>
+
     <div class="card">
       <div class="label">New Lows</div>
       <div class="value" id="newLows">-</div>
     </div>
+
     <div class="card">
       <div class="label">Day Change</div>
       <div class="value" id="dayChange">-</div>
     </div>
   </div>
 
+  <!-- Status note -->
   <div class="note">
     <div class="label">Status Note</div>
     <div class="note-text" id="statusNote">-</div>
   </div>
 
+  <!-- History table -->
   <div class="note">
     <div class="label">Recent Trend</div>
     <table id="historyTable">
@@ -143,6 +160,7 @@
     </table>
   </div>
 
+  <!-- Chart area -->
   <div class="note">
     <div class="label">Breadth Trend</div>
     <canvas id="breadthChart"></canvas>
@@ -150,9 +168,14 @@
 
   <script>
     async function loadDashboard() {
+
+      // =========================
+      // 1. LOAD CURRENT SNAPSHOT
+      // =========================
       const response = await fetch('./data.json');
       const data = await response.json();
 
+      // Fill top title and cards from data.json
       document.getElementById('title').textContent = data.index + ' Market Breadth';
       document.getElementById('asOf').textContent = data.asOf;
       document.getElementById('regime').textContent = data.regime;
@@ -167,9 +190,15 @@
       document.getElementById('dayChange').textContent = data.dayChange + '%';
       document.getElementById('statusNote').textContent = data.statusNote;
 
+      // ======================
+      // 2. LOAD HISTORY ARRAY
+      // ======================
       const historyResponse = await fetch('./history.json');
       const historyData = await historyResponse.json();
 
+      // ======================
+      // 3. BUILD HISTORY TABLE
+      // ======================
       const tbody = document.querySelector('#historyTable tbody');
       tbody.innerHTML = '';
 
@@ -186,23 +215,47 @@
         tbody.innerHTML += row;
       });
 
+      // ======================
+      // 4. PREPARE CHART DATA
+      // ======================
+
+      // Dates for x-axis
       const labels = historyData.map(item => item.date);
+
+      // First line: Breadth Score
       const breadthScores = historyData.map(item => item.breadthScore);
 
+      // Second line: Above 50 DMA
+      // THIS is the new line you asked about
+      const above50DMAData = historyData.map(item => item.above50DMA);
+
+      // ======================
+      // 5. DRAW THE CHART
+      // ======================
       const ctx = document.getElementById('breadthChart').getContext('2d');
 
       new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
-          datasets: [{
-            label: 'Breadth Score',
-            data: breadthScores,
-            borderColor: '#0077cc',
-            backgroundColor: 'rgba(0, 119, 204, 0.15)',
-            fill: true,
-            tension: 0.3
-          }]
+          datasets: [
+            {
+              label: 'Breadth Score',
+              data: breadthScores,
+              borderColor: '#0077cc',
+              backgroundColor: 'rgba(0, 119, 204, 0.15)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Above 50 DMA',
+              data: above50DMAData,
+              borderColor: '#16a34a',
+              backgroundColor: 'rgba(22, 163, 74, 0.10)',
+              fill: false,
+              tension: 0.3
+            }
+          ]
         },
         options: {
           responsive: true,
@@ -220,6 +273,7 @@
       });
     }
 
+    // Run everything
     loadDashboard();
   </script>
 </body>
