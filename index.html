@@ -2,10 +2,61 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Market Breadth Dashboard</title>
+  <title>Nifty MidSmall400 Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 30px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .label {
+      font-size: 14px;
+      color: #666;
+    }
+    .value {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello Rahul</h1>
-  <p>This is my first GitHub-hosted market breadth dashboard.</p>
+  <h1>Nifty MidSmall400 Market Breadth</h1>
+  <p>My first live dashboard on GitHub Pages.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">Market Regime</div>
+      <div class="value">Green</div>
+    </div>
+    <div class="card">
+      <div class="label">Breadth Score</div>
+      <div class="value">72</div>
+    </div>
+    <div class="card">
+      <div class="label">Above 20 DMA</div>
+      <div class="value">68%</div>
+    </div>
+    <div class="card">
+      <div class="label">Above 50 DMA</div>
+      <div class="value">61%</div>
+    </div>
+  </div>
 </body>
 </html>
