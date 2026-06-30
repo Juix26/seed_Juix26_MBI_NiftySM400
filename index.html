@@ -11,7 +11,10 @@
       padding: 30px;
     }
     h1 {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+    }
+    p {
+      color: #555;
     }
     .grid {
       display: grid;
@@ -37,26 +40,47 @@
   </style>
 </head>
 <body>
-  <h1>Nifty MidSmall400 Market Breadth</h1>
-  <p>My first live dashboard on GitHub Pages.</p>
+  <h1 id="title">Loading...</h1>
+  <p>As of: <span id="asOf">-</span></p>
 
   <div class="grid">
     <div class="card">
       <div class="label">Market Regime</div>
-      <div class="value">Green</div>
+      <div class="value" id="regime">-</div>
     </div>
     <div class="card">
       <div class="label">Breadth Score</div>
-      <div class="value">72</div>
+      <div class="value" id="breadthScore">-</div>
     </div>
     <div class="card">
       <div class="label">Above 20 DMA</div>
-      <div class="value">68%</div>
+      <div class="value" id="above20DMA">-</div>
     </div>
     <div class="card">
       <div class="label">Above 50 DMA</div>
-      <div class="value">61%</div>
+      <div class="value" id="above50DMA">-</div>
+    </div>
+    <div class="card">
+      <div class="label">Above 200 DMA</div>
+      <div class="value" id="above200DMA">-</div>
     </div>
   </div>
+
+  <script>
+    async function loadDashboard() {
+      const response = await fetch('./data.json');
+      const data = await response.json();
+
+      document.getElementById('title').textContent = data.index + ' Market Breadth';
+      document.getElementById('asOf').textContent = data.asOf;
+      document.getElementById('regime').textContent = data.regime;
+      document.getElementById('breadthScore').textContent = data.breadthScore;
+      document.getElementById('above20DMA').textContent = data.above20DMA + '%';
+      document.getElementById('above50DMA').textContent = data.above50DMA + '%';
+      document.getElementById('above200DMA').textContent = data.above200DMA + '%';
+    }
+
+    loadDashboard();
+  </script>
 </body>
 </html>
