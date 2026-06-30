@@ -37,6 +37,13 @@
       font-weight: bold;
       margin-top: 8px;
     }
+    .note {
+      margin-top: 24px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
   </style>
 </head>
 <body>
@@ -64,6 +71,31 @@
       <div class="label">Above 200 DMA</div>
       <div class="value" id="above200DMA">-</div>
     </div>
+    <div class="card">
+      <div class="label">Advances</div>
+      <div class="value" id="advances">-</div>
+    </div>
+    <div class="card">
+      <div class="label">Declines</div>
+      <div class="value" id="declines">-</div>
+    </div>
+    <div class="card">
+      <div class="label">New Highs</div>
+      <div class="value" id="newHighs">-</div>
+    </div>
+    <div class="card">
+      <div class="label">New Lows</div>
+      <div class="value" id="newLows">-</div>
+    </div>
+    <div class="card">
+      <div class="label">Day Change</div>
+      <div class="value" id="dayChange">-</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="label">Status Note</div>
+    <div class="value" id="statusNote" style="font-size:20px;">-</div>
   </div>
 
   <script>
@@ -78,6 +110,12 @@
       document.getElementById('above20DMA').textContent = data.above20DMA + '%';
       document.getElementById('above50DMA').textContent = data.above50DMA + '%';
       document.getElementById('above200DMA').textContent = data.above200DMA + '%';
+      document.getElementById('advances').textContent = data.advances;
+      document.getElementById('declines').textContent = data.declines;
+      document.getElementById('newHighs').textContent = data.newHighs;
+      document.getElementById('newLows').textContent = data.newLows;
+      document.getElementById('dayChange').textContent = data.dayChange + '%';
+      document.getElementById('statusNote').textContent = data.statusNote;
     }
 
     loadDashboard();
